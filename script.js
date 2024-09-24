@@ -7,6 +7,16 @@ const clickSound = document.getElementById('clickSound');
 let interval;
 let isPlaying = false;
 
+// Function to set the metronome interval
+function setMetronomeInterval(bpm) {
+  if (isPlaying) {
+    clearInterval(interval);
+    const intervalTime = (60 / bpm) * 1000;
+    interval = setInterval(playBeat, intervalTime);
+  }
+}
+
+// Event listener for Start/Stop button
 document.getElementById('startStop').addEventListener('click', function() {
   if (isPlaying) {
     clearInterval(interval);
@@ -14,21 +24,16 @@ document.getElementById('startStop').addEventListener('click', function() {
     this.textContent = 'Start';
   } else {
     const bpm = parseInt(bpmInput.value);
-    const intervalTime = (60 / bpm) * 1000;
-    interval = setInterval(playBeat, intervalTime);
+    setMetronomeInterval(bpm);
     isPlaying = true;
     this.textContent = 'Stop';
   }
 });
 
+// Event listener for manual BPM input changes
 bpmInput.addEventListener('input', function() {
   bpmValue.textContent = this.value;
-  if (isPlaying) {
-    clearInterval(interval);
-    const bpm = parseInt(this.value);
-    const intervalTime = (60 / bpm) * 1000;
-    interval = setInterval(playBeat, intervalTime);
-  }
+  setMetronomeInterval(parseInt(this.value));
 });
 
 // Medication Presets
@@ -48,10 +53,13 @@ medications.addEventListener('change', function() {
       break;
   }
   bpmValue.textContent = bpmInput.value;
+  setMetronomeInterval(parseInt(bpmInput.value));
 });
 
+// Function to play a beat and trigger the visual effect
 function playBeat() {
   clickSound.play();
   beatIndicator.style.animation = 'pulse 0.5s ease-in-out';
   setTimeout(() => beatIndicator.style.animation = 'none', 500);
 }
+
