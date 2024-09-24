@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMS Drip Rate Metronome</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div>
+        <h1>EMS Drip Rate Metronome</h1>
+
+        <!-- Medication Presets -->
+        <label for="medications">Select Medication:</label>
+        <select id="medications">
+            <option value="none">Manual Adjustment</option>
+            <option value="amiodarone">Amiodarone</option>
+            <option value="epinephrine">Epinephrine</option>
+            <option value="levophed">Levophed</option>
+        </select>
+
+        <!-- BPM Adjustment -->
+        <label for="bpm">Drip Rate (drips per minute): <span id="bpmValue">60</span></label>
+        <input type="range" id="bpm" min="40" max="240" value="60">
+
+        <!-- Start/Stop Button -->
+        <button id="startStop">Start</button>
+
+        <!-- Visual Indicator for Beats -->
+        <div id="beatIndicator"></div>
+    </div>
+
+    <!-- Audio Click -->
+    <audio id="clickSound" src="click.mp3"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
