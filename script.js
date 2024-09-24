@@ -65,14 +65,18 @@ medications.addEventListener('change', function() {
 function playBeat() {
   clickSound.play();
 
+  const bpm = parseInt(bpmInput.value);
+  const pulseDuration = Math.min(300, (60 / bpm) * 1000 / 2); // Adjust pulse duration based on BPM
+
   // Trigger a color change and pulse effect
   beatIndicator.style.backgroundColor = 'orange';
-  beatIndicator.style.animation = 'pulse 0.3s ease-in-out';  // Faster pulse for higher BPM
+  beatIndicator.style.animation = `pulse ${pulseDuration}ms ease-in-out`;
 
-  // Reset the color and animation after a delay (keeping orange longer)
+  // Reset the color and animation after a short delay
   setTimeout(() => {
     beatIndicator.style.backgroundColor = 'lightblue';
     beatIndicator.style.animation = 'none';
-  }, 600);  // Increase this to keep the orange longer (adjust based on BPM)
+  }, pulseDuration);  // Dynamically adjust reset time based on BPM
 }
+
 
