@@ -10,25 +10,28 @@ let isPlaying = false;
 // Function to set the metronome interval
 function setMetronomeInterval(bpm) {
   if (isPlaying) {
-    clearInterval(interval);
+    clearInterval(interval);  // Clear the existing interval
     const intervalTime = (60 / bpm) * 1000;
     interval = setInterval(playBeat, intervalTime);
   }
 }
 
-// Event listener for Start/Stop button
-document.getElementById('startStop').addEventListener('click', function() {
+// Function to start or stop the metronome
+function toggleMetronome() {
   if (isPlaying) {
     clearInterval(interval);
     isPlaying = false;
-    this.textContent = 'Start';
+    document.getElementById('startStop').textContent = 'Start';
   } else {
     const bpm = parseInt(bpmInput.value);
     setMetronomeInterval(bpm);
     isPlaying = true;
-    this.textContent = 'Stop';
+    document.getElementById('startStop').textContent = 'Stop';
   }
-});
+}
+
+// Event listener for Start/Stop button
+document.getElementById('startStop').addEventListener('click', toggleMetronome);
 
 // Event listener for manual BPM input changes
 bpmInput.addEventListener('input', function() {
@@ -36,7 +39,7 @@ bpmInput.addEventListener('input', function() {
   setMetronomeInterval(parseInt(this.value));
 });
 
-// Medication Presets
+// Medication Presets: Updates BPM and resets metronome if it's running
 medications.addEventListener('change', function() {
   switch (this.value) {
     case 'amiodarone':
@@ -53,7 +56,10 @@ medications.addEventListener('change', function() {
       break;
   }
   bpmValue.textContent = bpmInput.value;
-  setMetronomeInterval(parseInt(bpmInput.value));
+  
+  if (isPlaying) {
+    setMetronomeInterval(parseInt(bpmInput.value));  // Restart metronome if it's already running
+  }
 });
 
 // Function to play a beat and trigger the visual effect
@@ -62,4 +68,3 @@ function playBeat() {
   beatIndicator.style.animation = 'pulse 0.5s ease-in-out';
   setTimeout(() => beatIndicator.style.animation = 'none', 500);
 }
-
