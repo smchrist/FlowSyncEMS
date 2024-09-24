@@ -62,9 +62,16 @@ medications.addEventListener('change', function() {
   }
 });
 
-// Function to play a beat and trigger the visual effect
 function playBeat() {
   clickSound.play();
+
+  // Change the color and pulse the size of the beat indicator
+  beatIndicator.style.backgroundColor = 'orange';
   beatIndicator.style.animation = 'pulse 0.5s ease-in-out';
-  setTimeout(() => beatIndicator.style.animation = 'none', 500);
+
+  // Reset the color and animation after the beat
+  setTimeout(() => {
+    beatIndicator.style.backgroundColor = 'lightblue';
+    beatIndicator.style.animation = 'none';
+  }, 500);
 }
