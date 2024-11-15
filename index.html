@@ -3,41 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EMS Drip Rate Metronome</title>
-    <link rel="stylesheet" href="style.css">
+    <title>FlowSyncEMS Drip Metronome</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div>
-        <h1>EMS Drip Rate Metronome</h1>
+    <div class="container">
+        <h1>FlowSyncEMS Drip Metronome</h1>
 
-        <!-- Medication Presets -->
-        <label for="medications">Select Medication:</label>
-        <select id="medications">
-            <option value="none">Manual Adjustment</option>
-            <option value="amiodarone">Amiodarone</option>
-            <option value="epinephrine">Epinephrine</option>
-            <option value="levophed">Levophed</option>
-        </select>
+        <!-- Dropdown Menu for Drip Presets -->
+        <div class="dropdown">
+            <label for="dripPreset">Select Drip Preset:</label>
+            <select id="dripPreset">
+                <option value="select">Select a drip</option>
+                <option value="levophed">Levophed (Norepinephrine)</option>
+                <option value="epinephrine">Epinephrine</option>
+                <option value="amiodarone">Amiodarone</option>
+                <option value="magnesium">Magnesium Sulfate</option>
+            </select>
+        </div>
 
-        <!-- BPM Adjustment -->
-        <label for="bpm">Drip Rate (drips per minute): <span id="bpmValue">60</span></label>
-        <input type="range" id="bpm" min="40" max="240" value="60">
+        <!-- Drip Details Section -->
+        <div class="drip-details">
+            <h2>Drip Details</h2>
+            <p id="concentration">Concentration: --</p>
+            <p id="mixingInstructions">Mixing Instructions: --</p>
+            <p id="rate">Rate: --</p>
+            <p id="dripSet">Drip Set: --</p>
+        </div>
+
+        <!-- Levophed Drip Rate Table -->
+        <div class="drip-table" id="levophedTable" style="display: none;">
+            <h3>Levophed Drip Rates (60 gtt/mL Set)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>mcg/min</th>
+                        <th>Drops/min</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="drip-rate" data-rate="15">2</td><td>15</td></tr>
+                    <tr><td class="drip-rate" data-rate="30">4</td><td>30</td></tr>
+                    <tr><td class="drip-rate" data-rate="45">6</td><td>45</td></tr>
+                    <tr><td class="drip-rate" data-rate="60">8</td><td>60</td></tr>
+                    <tr><td class="drip-rate" data-rate="75">10</td><td>75</td></tr>
+                    <tr><td class="drip-rate" data-rate="90">12</td><td>90</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Epinephrine Drip Rate Table for 20 gtt/mL Set -->
+        <div class="drip-table" id="epiTable" style="display: none;">
+            <h3>Epinephrine Drip Rates (20 gtt/mL Set)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>mcg/min</th>
+                        <th>Drops/min</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td class="drip-rate-epi" data-rate="40">2</td><td>40</td></tr>
+                    <tr><td class="drip-rate-epi" data-rate="80">4</td><td>80</td></tr>
+                    <tr class="highlight"><td class="drip-rate-epi" data-rate="100">5 (Starting Rate)</td><td>100</td></tr>
+                    <tr><td class="drip-rate-epi" data-rate="120">6</td><td>120</td></tr>
+                    <tr><td class="drip-rate-epi" data-rate="160">8</td><td>160</td></tr>
+                    <tr><td class="drip-rate-epi" data-rate="200">10</td><td>200</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- BPM Slider with Titration Controls -->
+        <div class="bpm-slider">
+            <label for="bpm">Adjust BPM:</label>
+            <div class="slider-container">
+                <button id="decreaseBpm" class="slider-btn">-</button>
+                <input type="range" id="bpm" min="30" max="200" value="60">
+                <button id="increaseBpm" class="slider-btn">+</button>
+            </div>
+            <span id="bpmValue">60</span> BPM
+        </div>
 
         <!-- Start/Stop Button -->
-        <button id="startStop">Start</button>
+        <button id="startStopBtn">Start / Stop</button>
 
-        <!-- Visual Indicator for Beats -->
-        <div id="beatIndicator"></div>
+        <!-- Visual Indicator as IV Chamber -->
+        <div class="visual-indicator" id="visualIndicator">
+            <div class="drop" id="drop"></div> <!-- Drop element inside the chamber -->
+        </div>
+
+        <!-- Build Version -->
+        <p>Build 1.3.8</p>
+
+        <!-- Audio File for Click Sound -->
+        <audio id="clickSound" src="click.mp3"></audio>
+
+        <script src="script.js"></script>
     </div>
-
-    <!-- Audio Click -->
-    <audio id="clickSound" src="click.mp3"></audio>
-
-    <script src="script.js"></script>
-
-<footer>
-  <p style="font-size: 10px; color: #888;">Build: 1.0.0</p>
-</footer>
-
 </body>
 </html>
