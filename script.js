@@ -120,19 +120,24 @@ bpmSlider.addEventListener('input', () => {
 function startMetronome() {
     const bpm = parseInt(bpmSlider.value);
     const interval = 60000 / bpm; // Calculate interval in milliseconds
+
     clearInterval(metronomeInterval); // Clear any existing interval
 
     metronomeInterval = setInterval(() => {
         clickSound.play(); // Play the click sound
-        const drop = document.getElementById('drop');
-        drop.classList.add('drop-animation'); // Add animation class
 
-        // Remove the animation class after the animation ends to reset
-        setTimeout(() => {
-            drop.classList.remove('drop-animation');
-        }, 1200); // Match the duration of the animation
+        // Create a new drop element
+        const drop = document.createElement('div');
+        drop.classList.add('drop-animation');
+        visualIndicator.appendChild(drop);
+
+        // Remove the drop after the animation ends
+        drop.addEventListener('animationend', () => {
+            drop.remove();
+        });
     }, interval);
 }
+
 
 // Start/Stop the metronome
 startStopBtn.addEventListener('click', () => {

@@ -80,6 +80,6 @@ FlowSyncEMS is licensed under the GNU General Public License v3. For full detail
 
 ## Contact
 
-Visit [AstraCogni.com](https://www.astracogni.com) for updates, demonstrations, and more information about FlowSyncEMS.
+Comming soon - Visit [AstraCogni.com](https://www.astracogni.com) for updates, demonstrations, and more information about FlowSyncEMS.
 
 
