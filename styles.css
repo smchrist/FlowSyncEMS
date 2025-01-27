@@ -5,8 +5,33 @@ body {
     color: #333;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Align items at the top */
-    min-height: 100vh; /* Allow body to expand with content */
+    align-items: flex-start; /* Align content to the top */
+    min-height: 100vh; /* Allow body height to grow */
+    margin: 0;
+    padding: 20px;
+}
+
+
+.container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    margin: 20px auto; /* Add margin to center vertically */
+    overflow: visible; /* Allow content to flow */
+    min-height: auto; /* Let height adjust automatically */
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align content to the top */
+    min-height: 100vh; /* Allow body height to grow */
     margin: 0;
     padding: 20px;
 }
@@ -19,9 +44,15 @@ body {
     width: 100%;
     max-width: 800px;
     text-align: center;
-    margin-top: 20px; /* Add space at the top for larger tables */
+    margin: 20px auto; /* Center container with vertical spacing */
+    overflow: visible; /* Allow content to flow */
+    min-height: auto; /* Let height adjust automatically */
 }
 
+.drip-table {
+    margin: 20px 10px 40px; /* Adds 40px space below the table */
+    display: none; /* Hide tables by default */
+}
 
 /* Header */
 h1 {
@@ -76,13 +107,7 @@ select:focus {
 
 /* Drip Table */
 .drip-table {
-    margin-top: 20px;
-    display: none; /* Hide tables by default */
-}
-
-/* Drip Table */
-.drip-table {
-    margin: 20px 10px;
+    margin: 20px 10px; /* Adds space above and below the table */
     display: none; /* Hide tables by default */
 }
 
@@ -125,7 +150,7 @@ th {
 
 /* Gtts Slider with Titration Controls */
 .gtts-slider {
-    margin-bottom: 60px; /* Add more space below the slider */
+    margin-bottom: 30px; /* Add more space below the slider */
     text-align: center; /* Center align the slider elements */
 }
 
@@ -135,7 +160,6 @@ th {
     justify-content: center;
     gap: 10px; /* Add spacing between buttons and slider */
 }
-
 
 .slider-btn {
     background-color: #007BFF;
@@ -161,6 +185,7 @@ input[type="range"] {
     width: 70%; /* Adjusted for better fit */
     margin: 0 10px;
     -webkit-appearance: none;
+    appearance: none; /* Standard property for compatibility */
     background: #ddd;
     height: 5px;
     border-radius: 5px;
@@ -178,7 +203,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 #startStopBtn {
-    margin-top: 30px; /* Add spacing above the button */
+    margin-top: 10px; /* Add spacing above the button */
     padding: 20px 20px; /* Increase button padding */
     font-size: 1em; /* Ensure consistent button size */
 }
@@ -187,80 +212,78 @@ input[type="range"]::-webkit-slider-thumb {
 .visual-indicator {
     width: 40px;
     height: 120px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 2px solid #007BFF;
+    background-color: rgba(255, 255, 255, 0.8); /* Chamber background */
+    border: 2px solid #007BFF; /* Chamber border */
     border-radius: 10px;
     position: relative;
     margin: 20px auto;
     overflow: hidden;
 }
 
+/* Liquid at the bottom of the chamber */
+.liquid {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20%; /* Adjust for desired liquid level */
+    background-color: #007BFF; /* Liquid color */
+    opacity: 0.8; /* Slight transparency */
+}
+
 /* Drop Styles */
 .drop {
     width: 10px;
-    height: 10px;
+    height: 15px; /* Elongated for teardrop shape */
     background-color: #007BFF;
-    border-radius: 50%;
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
-}
-
-/* Drop Animation */
-@keyframes drop {
-    0% {
-        top: 10px;
-        opacity: 1;
-    }
-    20% {
-        top: 20px;
-        opacity: 1;
-    }
-    50% {
-        top: 60px;
-        opacity: 1;
-    }
-    100% {
-        top: 100px;
-        opacity: 0;
-    }
-}
-
-.drop-animation {
-    animation: drop 1.2s ease-in;
-    visibility: visible;
-}
-
-.drip-chamber {
-    position: relative;
-    width: 50px;
-    height: 200px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    overflow: hidden;
-    background-color: #f5f5f5;
-    margin: 0 auto;
-}
-
-.drop-animation {
+    border-radius: 60% 60% 50% 50%; /* Make it resemble a teardrop */
     position: absolute;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 10px;
-    height: 10px;
-    background-color: blue;
-    border-radius: 50%;
-    animation: drop 1s linear;
+    opacity: 1;
+}
+
+.drop-animation {
+    animation: drop 2s cubic-bezier(0.33, 0.66, 0.66, 1); /* Simulates gravity */
+    visibility: visible;
 }
 
 @keyframes drop {
-    from {
+    0% {
         top: 0;
+        opacity: 1;
     }
-    to {
-        top: 100%; /* Adjust to match the drip-chamber height */
+    75% {
+        top: 85%; /* Stops above the liquid layer */
+        opacity: 1;
+    }
+    100% {
+        top: 85%; /* Fully fades into the liquid */
+        opacity: 0;
     }
 }
+
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+.ripple {
+    position: absolute;
+    bottom: 10px; /* Slightly above the bottom of the chamber */
+    left: calc(50% - 5px); /* Nudge  left */
+    width: 10px;
+    height: 12px;
+    background-color: #fff;
+    border-radius: 60% 60% 100% 100%;
+    animation: ripple 1s ease-out;
+    transform: translate(-50%, 0%); /* Center horizontally and align to bottom */
+}
+

@@ -117,18 +117,38 @@ gttsSlider.addEventListener('input', () => {
 
 // Function to start the metronome
 function startMetronome() {
-    const gtts = parseInt(gttsSlider.value); // Updated variable
+    const gtts = parseInt(gttsSlider.value);
     const interval = 60000 / gtts; // Calculate interval in milliseconds
 
     clearInterval(metronomeInterval); // Clear any existing interval
 
     metronomeInterval = setInterval(() => {
-        clickSound.play(); // Play the click sound
+        // Play the drop sound
+        clickSound.play().catch((error) => {
+            console.error("Sound error:", error); // Log any playback errors
+        });
 
         // Create a new drop element
         const drop = document.createElement('div');
-        drop.classList.add('drop-animation');
+        drop.classList.add('drop');
         visualIndicator.appendChild(drop);
+
+        // Force re-trigger animation
+        requestAnimationFrame(() => {
+            drop.classList.add('drop-animation');
+        });
+
+        // Create ripple when the drop reaches the liquid
+        setTimeout(() => {
+            const ripple = document.createElement('div');
+            ripple.classList.add('ripple');
+            visualIndicator.appendChild(ripple);
+
+            // Remove the ripple after the animation ends
+            ripple.addEventListener('animationend', () => {
+                ripple.remove();
+            });
+        }, 2000); // Matches the drop animation duration (2s)
 
         // Remove the drop after the animation ends
         drop.addEventListener('animationend', () => {
@@ -137,8 +157,14 @@ function startMetronome() {
     }, interval);
 }
 
+
+
 // Start/Stop the metronome
 startStopBtn.addEventListener('click', () => {
+    clickSound.play().catch(() => {
+        console.log("Audio playback blocked by the browser.");
+    });
+
     if (isMetronomeRunning) {
         clearInterval(metronomeInterval);
         isMetronomeRunning = false;
@@ -149,3 +175,4 @@ startStopBtn.addEventListener('click', () => {
         startStopBtn.textContent = 'Stop';
     }
 });
+
