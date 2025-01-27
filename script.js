@@ -26,26 +26,31 @@ const dripDetails = {
         mixingInstructions: "4 mg (4 mL) in 500 mL NS",
         rate: "2-12 mcg/min (Titrated)",
         dripSet: "60 gtt/mL",
+        indication: "Post cardiac arrest", // Updated
     },
     epinephrine: {
         concentration: "1 mcg/mL",
         mixingInstructions: "1 mL (1 mg) in 1 L NS",
         rate: "2-10 mcg/min (Titrated)",
         dripSet: "20 gtt/mL",
+        indication: "Post cardiac arrest", // Updated
     },
     amiodarone: {
-        concentration: "150 mg in 50 mL D5W",
-        mixingInstructions: "Administer over 10 minutes (100 drops/min)",
-        rate: "For resolved VF/VT with ROSC",
+        concentration: "3 mg/mL", // Updated
+        mixingInstructions: "Place 150 mg (3 mL) in 50 mL D5W", // Updated
+        rate: "Non-titrated (100 gtts/min)", // Verified
         dripSet: "20 gtt/mL",
+        indication: "For resolved VF/VT with ROSC", // Verified
     },
     magnesium: {
         concentration: "2 g in 50 mL NS",
-        mixingInstructions: "Administer at 33 mg/min (50 drops/min)",
-        rate: "Non-titrated",
+        mixingInstructions: "Place 2 g of MgSO4 in 50 ml NS (or use pre-mixed bag). Administer at 33 mg/min.",
+        rate: "Non-titrated (50 gtts/min)",
         dripSet: "60 gtt/mL",
+        indication: "Post cardiac arrest", // Updated
     }
 };
+
 
 // Function to update drip details
 function updateDripDetails(selectedDrip) {
@@ -54,11 +59,13 @@ function updateDripDetails(selectedDrip) {
     epiTable.style.display = "none";
 
     if (selectedDrip === "select") {
+        document.getElementById("indication").textContent = "Indication: --"; // Reset
         concentration.textContent = "Concentration: --";
         mixingInstructions.textContent = "Mixing Instructions: --";
         rate.textContent = "Rate: --";
         dripSet.textContent = "Drip Set: --";
     } else {
+        document.getElementById("indication").textContent = `Indication: ${dripDetails[selectedDrip].indication}`;
         concentration.textContent = `Concentration: ${dripDetails[selectedDrip].concentration}`;
         mixingInstructions.textContent = `Mixing Instructions: ${dripDetails[selectedDrip].mixingInstructions}`;
         rate.textContent = `Rate: ${dripDetails[selectedDrip].rate}`;
@@ -72,6 +79,7 @@ function updateDripDetails(selectedDrip) {
         }
     }
 }
+
 
 // Update drip details when a preset is selected
 dripPreset.addEventListener('change', () => {

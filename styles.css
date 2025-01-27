@@ -55,11 +55,19 @@ body {
 }
 
 /* Header */
+
 h1 {
     font-size: 2em;
-    margin-bottom: 20px;
     color: #007BFF;
 }
+
+.tagline {
+    font-size: 1.2em;
+    color: #007BFF;
+    margin-top: -10px;
+    font-weight: 300;
+}
+
 
 /* Dropdown Menu */
 .dropdown {
