@@ -75,14 +75,15 @@
 
         <!-- BPM Slider with Titration Controls -->
         <div class="bpm-slider">
-            <label for="bpm">Adjust BPM:</label>
+            <label for="bpm">Adjust gtts/min:</label> <!-- Changed label -->
             <div class="slider-container">
-                <button id="decreaseBpm" class="slider-btn">-</button>
-                <input type="range" id="bpm" min="30" max="200" value="60">
-                <button id="increaseBpm" class="slider-btn">+</button>
+                <button id="decreaseGtts" class="slider-btn">-</button> <!-- Updated IDs -->
+                <input type="range" id="gttsSlider" min="30" max="200" value="60"> <!-- Updated ID -->
+                <button id="increaseGtts" class="slider-btn">+</button> <!-- Updated IDs -->
             </div>
-            <span id="bpmValue">60</span> BPM
+            <span id="gttsValue">60</span> gtts/min <!-- Updated display -->
         </div>
+
 
         <!-- Start/Stop Button -->
         <button id="startStopBtn">Start / Stop</button>

@@ -4,12 +4,12 @@ const concentration = document.getElementById('concentration');
 const mixingInstructions = document.getElementById('mixingInstructions');
 const rate = document.getElementById('rate');
 const dripSet = document.getElementById('dripSet');
-const bpmSlider = document.getElementById('bpm');
-const bpmValue = document.getElementById('bpmValue');
+const gttsSlider = document.getElementById('gttsSlider'); // Updated
+const gttsValue = document.getElementById('gttsValue'); // Updated
 const startStopBtn = document.getElementById('startStopBtn');
 const visualIndicator = document.getElementById('visualIndicator');
-const increaseBpmBtn = document.getElementById('increaseBpm');
-const decreaseBpmBtn = document.getElementById('decreaseBpm');
+const increaseGttsBtn = document.getElementById('increaseGtts'); // Updated
+const decreaseGttsBtn = document.getElementById('decreaseGtts'); // Updated
 const levophedTable = document.getElementById('levophedTable');
 const epiTable = document.getElementById('epiTable');
 
@@ -35,7 +35,7 @@ const dripDetails = {
     },
     amiodarone: {
         concentration: "150 mg in 50 mL D5W",
-        mixingInstructions: "Administer over 10 minutes",
+        mixingInstructions: "Administer over 10 minutes (100 drops/min)",
         rate: "For resolved VF/VT with ROSC",
         dripSet: "20 gtt/mL",
     },
@@ -78,48 +78,47 @@ dripPreset.addEventListener('change', () => {
     updateDripDetails(dripPreset.value);
 });
 
-// Function to update BPM value and restart metronome if running
-function updateBpm(newBpm) {
-    bpmSlider.value = newBpm;
-    bpmValue.textContent = newBpm;
+function updateGtts(newGtts) {
+    gttsSlider.value = newGtts;
+    gttsValue.textContent = `${newGtts}`; // Ensure no duplication here
     if (isMetronomeRunning) {
-        clearInterval(metronomeInterval); // Clear the current interval
-        startMetronome(); // Restart the metronome with the new BPM
+        clearInterval(metronomeInterval);
+        startMetronome();
     }
 }
 
 // Add click events to Levophed and Epinephrine drip rate elements
 document.querySelectorAll('.drip-rate, .drip-rate-epi').forEach(element => {
     element.addEventListener('click', () => {
-        const newBpm = element.getAttribute('data-rate');
-        updateBpm(newBpm);
+        const newGtts = element.getAttribute('data-rate'); // Updated variable
+        updateGtts(newGtts); // Updated function call
         // Highlight the selected rate
         document.querySelectorAll('.drip-rate, .drip-rate-epi').forEach(el => el.classList.remove('active'));
         element.classList.add('active');
     });
 });
 
-// Increase BPM
-increaseBpmBtn.addEventListener('click', () => {
-    let newBpm = Math.min(parseInt(bpmSlider.value) + 1, 200); // Max BPM is 200
-    updateBpm(newBpm);
+// Increase gtts/min
+increaseGttsBtn.addEventListener('click', () => {
+    let newGtts = Math.min(parseInt(gttsSlider.value) + 1, 200); // Max gtts/min is 200
+    updateGtts(newGtts);
 });
 
-// Decrease BPM
-decreaseBpmBtn.addEventListener('click', () => {
-    let newBpm = Math.max(parseInt(bpmSlider.value) - 1, 30); // Min BPM is 30
-    updateBpm(newBpm);
+// Decrease gtts/min
+decreaseGttsBtn.addEventListener('click', () => {
+    let newGtts = Math.max(parseInt(gttsSlider.value) - 1, 30); // Min gtts/min is 30
+    updateGtts(newGtts);
 });
 
-// Update BPM when slider is moved
-bpmSlider.addEventListener('input', () => {
-    updateBpm(bpmSlider.value);
+// Update gtts/min when slider is moved
+gttsSlider.addEventListener('input', () => {
+    updateGtts(gttsSlider.value);
 });
 
 // Function to start the metronome
 function startMetronome() {
-    const bpm = parseInt(bpmSlider.value);
-    const interval = 60000 / bpm; // Calculate interval in milliseconds
+    const gtts = parseInt(gttsSlider.value); // Updated variable
+    const interval = 60000 / gtts; // Calculate interval in milliseconds
 
     clearInterval(metronomeInterval); // Clear any existing interval
 
@@ -137,7 +136,6 @@ function startMetronome() {
         });
     }, interval);
 }
-
 
 // Start/Stop the metronome
 startStopBtn.addEventListener('click', () => {

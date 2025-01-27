@@ -5,8 +5,8 @@ body {
     color: #333;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start; /* Align items at the top */
+    min-height: 100vh; /* Allow body to expand with content */
     margin: 0;
     padding: 20px;
 }
@@ -19,7 +19,9 @@ body {
     width: 100%;
     max-width: 800px;
     text-align: center;
+    margin-top: 20px; /* Add space at the top for larger tables */
 }
+
 
 /* Header */
 h1 {
@@ -78,6 +80,12 @@ select:focus {
     display: none; /* Hide tables by default */
 }
 
+/* Drip Table */
+.drip-table {
+    margin: 20px 10px;
+    display: none; /* Hide tables by default */
+}
+
 .drip-table h3, .drip-table h4 {
     font-size: 1.2em;
     margin-bottom: 10px;
@@ -115,22 +123,25 @@ th {
     border-radius: 5px;
 }
 
-/* BPM Slider with Titration Controls */
-.bpm-slider {
-    margin-bottom: 20px;
+/* Gtts Slider with Titration Controls */
+.gtts-slider {
+    margin-bottom: 60px; /* Add more space below the slider */
+    text-align: center; /* Center align the slider elements */
 }
 
 .slider-container {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 10px; /* Add spacing between buttons and slider */
 }
+
 
 .slider-btn {
     background-color: #007BFF;
     color: #fff;
     border: none;
-    padding: 5px 10px;
+    padding: 8px 12px; /* Increased padding for better usability */
     font-size: 1em;
     border-radius: 5px;
     cursor: pointer;
@@ -147,8 +158,8 @@ th {
 }
 
 input[type="range"] {
-    width: 100%;
-    margin: 10px 0;
+    width: 70%; /* Adjusted for better fit */
+    margin: 0 10px;
     -webkit-appearance: none;
     background: #ddd;
     height: 5px;
@@ -164,6 +175,12 @@ input[type="range"]::-webkit-slider-thumb {
     background-color: #007BFF;
     border-radius: 50%;
     cursor: pointer;
+}
+
+#startStopBtn {
+    margin-top: 30px; /* Add spacing above the button */
+    padding: 20px 20px; /* Increase button padding */
+    font-size: 1em; /* Ensure consistent button size */
 }
 
 /* Visual Indicator as IV Chamber */
